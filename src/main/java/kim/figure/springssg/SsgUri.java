@@ -1,12 +1,22 @@
 package kim.figure.springssg;
 
 /**
- * @Project : figure.kim
- * @Date : 2022-01-13
- * @Author : "DoHyeong Walker Kim"
- * @ChangeHistory :
- * @Note :
+ * The type Ssg uri.
+ *
+ * @author : DoHyeong Walker Kim
  */
 public class SsgUri {
+    /**
+     * The Uri.
+     */
     String URI;
+
+    /**
+     * Instantiates a new Ssg uri.
+     *
+     * @param URI the uri
+     */
+    public SsgUri(String URI){
+        this.URI = URI;
+    }
 }

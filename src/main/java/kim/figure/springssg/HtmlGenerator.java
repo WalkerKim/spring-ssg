@@ -34,13 +34,10 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 
 /**
- * @Project : figure.kim
- * @Date : 2021-12-28
- * @Author : "DoHyeong Walker Kim"
- * @ChangeHistory :
- * @Note :
+ * The type Html generator.
+ *
+ * @author : "DoHyeong Walker Kim"
  */
-
 public class HtmlGenerator extends PathVariableMethodArgumentResolver {
     private static final Logger log = LoggerFactory.getLogger(HtmlGenerator.class);
     private final String distributionPath;
@@ -50,6 +47,16 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
     private final Boolean htmlExtensionBoolean;
     private final String port;
 
+    /**
+     * Instantiates a new Html generator.
+     *
+     * @param resourceUrlProvider  the resource url provider
+     * @param distributionPath     the distribution path
+     * @param handlerMappingList   the handler mapping list
+     * @param port                 the port
+     * @param applicationContext   the application context
+     * @param htmlExtensionBoolian the html extension boolian
+     */
     public HtmlGenerator(ResourceUrlProvider resourceUrlProvider, String distributionPath, List<HandlerMapping> handlerMappingList, String port, ApplicationContext applicationContext, Boolean htmlExtensionBoolian) {
         super();
         this.resourceUrlProvider = resourceUrlProvider;
@@ -61,7 +68,11 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
     }
 
 
-
+    /**
+     * Generate static site.
+     *
+     * @throws IOException the io exception
+     */
     public void generateStaticSite() throws IOException {
         //Clear exists files in distribution path
         clearDistPath(distributionPath);
@@ -126,6 +137,12 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
         return requestUriList;
     }
 
+    /**
+     * Request handler mapping uri extractor list.
+     *
+     * @param requestMappingHandlerMapping the request mapping handler mapping
+     * @return the list
+     */
     List<String> requestHandlerMappingUriExtractor(RequestMappingHandlerMapping requestMappingHandlerMapping){
         return requestMappingHandlerMapping
                 .getHandlerMethods()
@@ -179,6 +196,12 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
 
     }
 
+    /**
+     * Clear dist path.
+     *
+     * @param distributionPath the distribution path
+     * @throws IOException the io exception
+     */
     public void clearDistPath(String distributionPath) throws IOException {
         try {
             if (!Files.exists(Paths.get(distributionPath)))
@@ -192,6 +215,11 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
                 .forEach(File::delete);
     }
 
+    /**
+     * Copy static resources.
+     *
+     * @param distributionPath the distribution path
+     */
     public void copyStaticResources(String distributionPath) {
         resourceUrlProvider.getHandlerMap().entrySet().stream().forEach(resourceHandlerEntry -> {
             String uriPattern = resourceHandlerEntry.getKey();
@@ -251,6 +279,11 @@ public class HtmlGenerator extends PathVariableMethodArgumentResolver {
     }
     private static class PathVariableNamedValueInfo extends NamedValueInfo {
 
+        /**
+         * Instantiates a new Path variable named value info.
+         *
+         * @param annotation the annotation
+         */
         public PathVariableNamedValueInfo(PathVariable annotation) {
             super(annotation.name(), annotation.required(), ValueConstants.DEFAULT_NONE);
         }
